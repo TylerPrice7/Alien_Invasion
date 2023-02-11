@@ -11,7 +11,6 @@ class AlienInvasion():
         #self.screen = pygame.display.set_mode((self.settings.screen_width,
 #self.settings.screen_height))
         self.ship = Ship(self)
-
         pygame.display.set_caption("Alien Rocket")
 
     def _check_events(self):
