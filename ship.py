@@ -6,10 +6,14 @@ class Ship():
         """Initialize image size and location"""
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
+        self.settings = ai_game.settings
         # Load image file into game
         self.image = pygame.image.load('images/ship.bmp')
         self.img_rect = self.image.get_rect()
-        self.img_rect.center = self.screen_rect.center
+        self.img_rect.midbottom = self.screen_rect.midbottom
+        # Decimal placeholder for ship's position
+        self.x = float(self.img_rect.x)
+        self.y = float(self.img_rect.y)
         # Movement Flags
         self.move_left = False
         self.move_right = False
@@ -18,15 +22,18 @@ class Ship():
 
     def update_movement(self):
         """Checks _keyup_events() and _key_down_events() for verification"""
-        print(self.move_left)
         if self.move_left and self.img_rect.left > 0:
-            self.img_rect.x -= 1
+            self.x -= self.settings.ship_speed
         if self.move_right and self.img_rect.right < self.screen_rect.right:
-            self.img_rect.x += 1
+            self.x += self.settings.ship_speed
         if self.move_up and self.img_rect.top > self.screen_rect.top:
-            self.img_rect.y -= 1
+            self.y -= self.settings.ship_speed
         if self.move_down and self.img_rect.bottom < self.screen_rect.bottom:
-            self.img_rect.y += 1
+            self.y += self.settings.ship_speed
+        # Adds non-integer value of x/y coordinate to ship's speed
+        self.img_rect.x = self.x
+        self.img_rect.y = self.y
 
     def blitme(self):
-        self.screen.blit(self.image, self.img_rect) # Load in the image
+        """Loads in the ship with the designated coordinates"""
+        self.screen.blit(self.image, self.img_rect)
