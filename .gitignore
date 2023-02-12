@@ -3,3 +3,5 @@ images/.DS_Store
 *.pyc
 __pycache__/settings.cpython-311.pyc
 __pycache__/ship.cpython-311.pyc
+__pycache__/settings.cpython-311.pyc
+__pycache__/ship.cpython-311.pyc
