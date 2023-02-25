@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/bullet.cpython-311.pyc
+__pycache__/sideways_alien.cpython-311.pyc
+__pycache__/sideways_bullet.cpython-311.pyc
+__pycache__/sideways_settings.cpython-311.pyc
+__pycache__/sideways_ship.cpython-311.pyc
+images/raindrop.png
+images/star.bmp
