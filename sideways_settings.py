@@ -1,6 +1,7 @@
 import pygame
 
 class Settings():
+    """Settings class for Alien Invasion game (sideways edition)"""
     def __init__(self):
         """Initializes settings for the screen, background color, ship,"""
         """ and bullets"""

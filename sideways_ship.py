@@ -7,13 +7,16 @@ class Ship():
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
+
         # Load image file into game
-        self.image = pygame.image.load('images/sideways_ship.bmp')
+        self.image = pygame.image.load('Alien_Invasion/images/sideways_ship.bmp')
         self.img_rect = self.image.get_rect()
         self.img_rect.midleft = self.screen_rect.midleft
+
         # Decimal placeholder for ship's position
         self.x = float(self.img_rect.x)
         self.y = float(self.img_rect.y)
+        
         # Movement Flags
         self.move_left = False
         self.move_right = False
