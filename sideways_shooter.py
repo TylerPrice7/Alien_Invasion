@@ -75,7 +75,7 @@ class AlienInvasion():
         # Checks how many aliens can fit down the screen and how many rows
         # can be comfortably placed so the ship has room to move
         available_y = self.screen_rect.height - (2 * height) 
-        available_x = self.screen_rect.width - self.ship.img_rect.width - 4 * width
+        available_x = self.screen_rect.width - self.ship.img_rect.width - 6 * width
         numalien_y = available_y // (2 * height)
         numalien_x = available_x // (2 * width)
         # Creates aliens in specific columns and row
@@ -83,7 +83,7 @@ class AlienInvasion():
             for alien_number in range(numalien_y):
                 alien = Alien(self)
                 width, height = alien.rect.size
-                alien.rect.x = self.screen_rect.right - 2 * width * alien_column
+                alien.rect.x = self.screen_rect.right - 2 * width - (2 * width * alien_column)
                 alien.y = height + 2 * height * alien_number
                 alien.rect.y = alien.y
                 self.aliens.add(alien)
@@ -91,7 +91,16 @@ class AlienInvasion():
 
     def _update_alien(self):
         """Moves alien down until hits screen, then left and up, vise-versa"""
-        
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.screen_rect.bottom or alien.rect.top <= 0:
+                self.settings.change_direction *= -1
+                for alien2 in self.aliens.sprites():
+                    alien2.y += self.settings.alien_speed * self.settings.change_direction
+                    alien2.rect.y = alien2.y
+                    alien2.rect.x -= self.settings.alien_speed
+                break
+            alien.y += self.settings.alien_speed * self.settings.change_direction
+            alien.rect.y = alien.y
 
     def _update_screen(self):
         """Updates screen with background, ship, aliens, and bullets"""
@@ -109,6 +118,7 @@ class AlienInvasion():
             self.ship.update_movement()
             self.bullets.update()
             self._update_bullets()
+            self._update_alien()
             self._update_screen()
 
 if __name__ == '__main__':
