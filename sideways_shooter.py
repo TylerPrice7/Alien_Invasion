@@ -62,11 +62,20 @@ class AlienInvasion():
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
+    def _check_bullet_collision(self):
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
     def _update_bullets(self):
-        """Removes bullets that have exited the screen perimeter"""
+        """
+        Removes bullets that have exited the screen or have hit an alien. 
+        If all aliens are defeated, add new fleet and replenish bullets
+        """
         for bullet in self.bullets.copy():
             if bullet.rect.left >= self.ship.screen_rect.right:
                 self.bullets.remove(bullet)
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
 
     def _create_fleet(self):
         """Creates the alien fleet"""
@@ -88,19 +97,23 @@ class AlienInvasion():
                 alien.rect.y = alien.y
                 self.aliens.add(alien)
 
-
-    def _update_alien(self):
-        """Moves alien down until hits screen, then left and up, vise-versa"""
+    def _check_fleet_edges(self):
+        """Checks all aliens to see if they have hit an edge"""
         for alien in self.aliens.sprites():
-            if alien.rect.bottom >= self.screen_rect.bottom or alien.rect.top <= 0:
-                self.settings.change_direction *= -1
-                for alien2 in self.aliens.sprites():
-                    alien2.y += self.settings.alien_speed * self.settings.change_direction
-                    alien2.rect.y = alien2.y
-                    alien2.rect.x -= self.settings.alien_speed
+            if alien.check_edges():
+                self._change_fleet_direction()
                 break
-            alien.y += self.settings.alien_speed * self.settings.change_direction
-            alien.rect.y = alien.y
+
+    def _change_fleet_direction(self):
+        """Changes the direction of the aliens and moves the fleet closer"""
+        self.settings.change_direction *= -1
+        for alien in self.aliens.sprites():
+            alien.rect.x -= self.settings.alien_speed
+
+    def _update_aliens(self):
+        """Updates rect coordinates of aliens"""
+        self._check_fleet_edges()
+        self.aliens.update()
 
     def _update_screen(self):
         """Updates screen with background, ship, aliens, and bullets"""
@@ -118,7 +131,8 @@ class AlienInvasion():
             self.ship.update_movement()
             self.bullets.update()
             self._update_bullets()
-            self._update_alien()
+            self._check_bullet_collision()
+            self._update_aliens()
             self._update_screen()
 
 if __name__ == '__main__':

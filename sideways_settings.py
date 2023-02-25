@@ -15,5 +15,9 @@ class Settings():
         self.bullet_width = 30
         self.bullet_speed = 1.0
         self.bullet_max = 5
+        self.alien_speed = 1
+        # Direction of 1 means down, -1 means up
+        self.change_direction = 1       
+
 
 
