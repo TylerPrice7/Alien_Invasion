@@ -66,13 +66,14 @@ class AlienInvasion():
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
     def _update_bullets(self):
-        """
-        Removes bullets that have exited the screen or have hit an alien. 
-        If all aliens are defeated, add new fleet and replenish bullets
-        """
+        """Removes bullets that have exited the screen or have hit an alien""" 
         for bullet in self.bullets.copy():
             if bullet.rect.left >= self.ship.screen_rect.right:
                 self.bullets.remove(bullet)
+        self._check_bullet_collisions()
+
+    def _check_bullet_collisions(self):
+        """If all aliens are defeated, add new fleet and replenish bullets"""
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
@@ -108,7 +109,7 @@ class AlienInvasion():
         """Changes the direction of the aliens and moves the fleet closer"""
         self.settings.change_direction *= -1
         for alien in self.aliens.sprites():
-            alien.rect.x -= self.settings.alien_speed
+            alien.rect.x -= self.settings.alien_speed * 4 # x4 so it's faster
 
     def _update_aliens(self):
         """Updates rect coordinates of aliens"""
