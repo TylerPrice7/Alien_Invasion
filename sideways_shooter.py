@@ -115,7 +115,7 @@ class AlienInvasion():
         """Changes the direction of the aliens and moves the fleet closer"""
         self.settings.change_direction *= -1
         for alien in self.aliens.sprites():
-            alien.rect.x -= self.settings.alien_speed * 4 # x4 so it's faster
+            alien.rect.x -= self.settings.alien_drop_speed
 
     def _check_alien_screenend(self):
         """Checks if any alien has hit the end of the screen"""
