@@ -16,7 +16,7 @@ class Bullet(Sprite):
             self.settings.bullet_height)
         self.rect.midright = ai_game.ship.rect.midright
 
-        # Store bullet's y value at float
+        # Store bullet's x value at float
         self.x = float(self.rect.x)
 
     def update(self):
