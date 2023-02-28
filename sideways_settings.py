@@ -17,7 +17,8 @@ class Settings():
         self.bullet_max = 5
         self.alien_speed = 1
         # Direction of 1 means down, -1 means up
-        self.change_direction = 1       
-
+        self.change_direction = 1
+        self.ships_limit = 3
+        self.aliens_until_win = 50
 
 
