@@ -7,13 +7,16 @@ class Ship():
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
         self.settings = ai_game.settings
+
         # Load image file into game
         self.image = pygame.image.load('images/ship.bmp')
-        self.img_rect = self.image.get_rect()
-        self.img_rect.midbottom = self.screen_rect.midbottom
+        self.rect = self.image.get_rect()
+        self.rect.midbottom = self.screen_rect.midbottom
+
         # Decimal placeholder for ship's position
-        self.x = float(self.img_rect.x)
-        self.y = float(self.img_rect.y)
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
+        
         # Movement Flags
         self.move_left = False
         self.move_right = False
@@ -21,19 +24,25 @@ class Ship():
         self.move_down = False
 
     def update_movement(self):
-        """Checks _keyup_events() and _key_down_events() for verification"""
-        if self.move_left and self.img_rect.left > 0:
+        """Moves the ship by rect x or rect y"""
+        if self.move_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
-        if self.move_right and self.img_rect.right < self.screen_rect.right:
+        if self.move_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
-        if self.move_up and self.img_rect.top > self.screen_rect.top:
+        if self.move_up and self.rect.top > self.screen_rect.top:
             self.y -= self.settings.ship_speed
-        if self.move_down and self.img_rect.bottom < self.screen_rect.bottom:
+        if self.move_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.ship_speed
         # Adds non-integer value of x/y coordinate to ship's speed
-        self.img_rect.x = self.x
-        self.img_rect.y = self.y
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+    def center_ship(self):
+        """Center the ship to its original position"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def blitme(self):
         """Loads in the ship with the designated coordinates"""
-        self.screen.blit(self.image, self.img_rect)
+        self.screen.blit(self.image, self.rect)
