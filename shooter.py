@@ -67,7 +67,7 @@ not self.stats.game_active and not self.paused):
             if not self.stats.game_active and self.paused:
                 self.paused = False
                 self.stats.game_active = True
-            elif not self.paused:
+            elif self.stats.game_active and not self.paused:
                 self.paused = True
         if event.key == pygame.K_RETURN:
             if (not self.stats.game_active and not self.paused):
