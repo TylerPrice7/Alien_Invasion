@@ -114,7 +114,7 @@ not self.stats.game_active and not self.paused):
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
-            self._check_bullet_collisions()
+        self._check_bullet_collisions()
 
     def _check_bullet_collisions(self):
         """If all aliens are defeated, add new fleet and replenish bullets"""
