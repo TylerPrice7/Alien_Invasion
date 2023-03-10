@@ -1,4 +1,4 @@
-from sideways_settings import Settings
+from settings import Settings
 
 class GameStats():
     """Game Stats for Alien Invasion class"""
