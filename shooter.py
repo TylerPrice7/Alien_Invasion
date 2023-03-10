@@ -103,14 +103,9 @@ not self.stats.game_active and not self.paused):
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
-    def _check_bullet_collision(self):
-        """Checks if any bullet has hit an alien. Both are deleted on impact"""
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
-        for alien in collisions:
-            self.stats.aliens_left -= 1
-
     def _update_bullets(self):
-        """Removes bullets that have exited the screen perimeter"""
+        """Updates and removes bullets that have exited the screen"""
+        self.bullets.update()
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
@@ -118,6 +113,12 @@ not self.stats.game_active and not self.paused):
 
     def _check_bullet_collisions(self):
         """If all aliens are defeated, add new fleet and replenish bullets"""
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        # This will likely be removed for the full game. 
+        # Just for testing purposes. Should keep in sideways_shooter
+        for alien in collisions:
+            self.stats.aliens_left -= 1
+
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
@@ -242,9 +243,7 @@ not self.stats.game_active and not self.paused):
             self._check_events()
             if self.stats.game_active:
                 self.ship.update_movement()
-                self.bullets.update()
                 self._update_bullets()
-                self._check_bullet_collision()
                 self._update_aliens()
             self._update_screen()
 
