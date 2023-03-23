@@ -13,6 +13,7 @@ class Ship(Sprite):
 
         # Load image file into game
         self.image = Path(__file__).parent / "images/ship.bmp"
+        self.image = pygame.image.load(self.image)
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
 
