@@ -7,6 +7,7 @@ from bullet import Bullet
 from alien import Alien
 from button import Button
 from game_stats import GameStats
+from scoreboard import Scoreboard
 
 class AlienInvasion():
     def __init__(self):
@@ -24,6 +25,7 @@ class AlienInvasion():
         self.ship = Ship(self)
         self.aliens = pygame.sprite.Group()  
         self.bullets = pygame.sprite.Group()
+        self.scoreboard = Scoreboard(self)
       
         pygame.display.set_caption("Alien Rocket")
         self._create_fleet()
