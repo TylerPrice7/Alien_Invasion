@@ -189,9 +189,11 @@ class AlienInvasion():
         Collisions with aliens increases the score. 
         Full fleet wipe increases difficulty
         """
-        if pygame.sprite.groupcollide(self.bullets, self.aliens, True, True):
-            self.music.sfx_alien_hit()
-            self.stats.score += 1
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if collisions:
+            for collision in collisions.values():
+                self.music.sfx_alien_hit()
+                self.stats.score += 1 * len(collision)
             self.scoreboard.prep_score()
 
         if not self.aliens:
